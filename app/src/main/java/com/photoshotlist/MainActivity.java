@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.photoshotlist.BLL.PSLBusinessHelper;
 import com.photoshotlist.DAL.PSLDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
             display = (TextView)findViewById(R.id.textViewDisplayCategory);
             //display.setText(String.format("Thanks for adding category: %s", text));
 
-            SQLiteOpenHelper bomDiaDatabaseHelper = new PSLDatabaseHelper(this);
-            db = bomDiaDatabaseHelper.getReadableDatabase();
+            PSLBusinessHelper pbh = new PSLBusinessHelper();
+            SQLiteOpenHelper dataLayerObject = pbh.GetDataLayerObject(this);
+            db = dataLayerObject.getReadableDatabase();
             cursor = db.query("Category", new String[]{"Name"}, null, null, null, null, "RANDOM() LIMIT 1");
 
             if(cursor.moveToFirst()){
@@ -77,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
             display = (TextView)findViewById(R.id.textViewDisplayRule);
             //display.setText(String.format("Thanks for adding category: %s", text));
 
-            SQLiteOpenHelper bomDiaDatabaseHelper = new PSLDatabaseHelper(this);
-            db = bomDiaDatabaseHelper.getReadableDatabase();
+            PSLBusinessHelper pbh = new PSLBusinessHelper();
+            SQLiteOpenHelper dataLayerObject = pbh.GetDataLayerObject(this);
+            db = dataLayerObject.getReadableDatabase();
+
             cursor = db.query("Rule", new String[]{"Name"}, null, null, null, null, "RANDOM() LIMIT 1");
 
             if(cursor.moveToFirst()){

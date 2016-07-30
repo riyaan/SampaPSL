@@ -10,19 +10,32 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by PhpDev on 2016/07/30.
  */
 public class PSLDatabaseHelper extends SQLiteOpenHelper {
+
+    private static PSLDatabaseHelper instance;
+
     private static final String DB_NAME = "PhotoShotList";
     private static final int DB_VERSION = 1; // TODO: Read from configuration file
+    private static final int OLD_VERSION = 1; // old version of the database
+    private static final int NEW_VERSION = 1; // new version of the database
 
     private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE Category (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name TEXT, LongDescription TEXT, IsActive INTEGER);";
     private static final String CREATE_TABLE_RULE = "CREATE TABLE Rule (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name TEXT, LongDescription TEXT, IsActive INTEGER);";
 
-    public PSLDatabaseHelper(Context context) {
+    private PSLDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public static PSLDatabaseHelper getInstance(Context context)
+    {
+        if(instance == null) {
+            instance = new PSLDatabaseHelper(context);
+        }
+        return instance;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        updateMyDatabase(db, 1, 1);
+        updateMyDatabase(db, OLD_VERSION, NEW_VERSION);
     }
 
     @Override
