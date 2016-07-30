@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PhotoShotList</string>
+    <string name="button_add_rule">Add Rule</string>
+    <string name="button_add_category">Add Category</string>
+    <string name="add_the_rule_name">Add the Rule Name.</string>
+    <string name="add_the_category_name">Add the Category Name.</string>
+</resources>
