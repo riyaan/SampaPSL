@@ -1,11 +1,13 @@
 package com.photoshotlist;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.View;
@@ -19,10 +21,14 @@ import com.photoshotlist.DAL.PSLDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
+    public final static String EXTRA_MESSAGE = "YANIE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
     }
 
     public void onClickAddCategory(View view)
@@ -102,5 +108,12 @@ public class MainActivity extends AppCompatActivity {
                 db.close();
         }
 
+    }
+
+    public void onClickNewShotlist(View view)
+    {
+        Intent intent = new Intent(this, MainShotlistActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, "Oh Hi...");
+        startActivity(intent);
     }
 }
